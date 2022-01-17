@@ -52,6 +52,7 @@ class _QuizState extends State<Quiz> {
       size: 30.0,
     )
   ];
+  List<String> question = ['question1', 'question2', 'question3', 'question4'];
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class _QuizState extends State<Quiz> {
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
-                    'test application quiz bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+                    '${question[1]}',
                     style: TextStyle(color: Colors.white, fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
