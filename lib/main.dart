@@ -25,6 +25,34 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+  List<Icon> resultat = [
+    Icon(
+      Icons.check,
+      color: Colors.green,
+      size: 30.0,
+    ),
+    Icon(
+      Icons.check,
+      color: Colors.green,
+      size: 30.0,
+    ),
+    Icon(
+      Icons.check,
+      color: Colors.green,
+      size: 30.0,
+    ),
+    Icon(
+      Icons.close,
+      color: Colors.red,
+      size: 30.0,
+    ),
+    Icon(
+      Icons.close,
+      color: Colors.red,
+      size: 30.0,
+    )
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -76,35 +104,7 @@ class _QuizState extends State<Quiz> {
                 ),
               ),
             ),
-            Row(
-              children: [
-                Icon(
-                  Icons.check,
-                  color: Colors.green,
-                  size: 30.0,
-                ),
-                Icon(
-                  Icons.check,
-                  color: Colors.green,
-                  size: 30.0,
-                ),
-                Icon(
-                  Icons.check,
-                  color: Colors.green,
-                  size: 30.0,
-                ),
-                Icon(
-                  Icons.close,
-                  color: Colors.red,
-                  size: 30.0,
-                ),
-                Icon(
-                  Icons.close,
-                  color: Colors.red,
-                  size: 30.0,
-                ),
-              ],
-            )
+            Row(children: resultat),
           ],
         ),
       ),
