@@ -66,8 +66,9 @@ class _QuizState extends State<Quiz> {
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
-                    'test application quiz ',
+                    'test application quiz bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
                     style: TextStyle(color: Colors.white, fontSize: 25),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
