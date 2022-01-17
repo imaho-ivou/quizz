@@ -76,6 +76,35 @@ class _QuizState extends State<Quiz> {
                 ),
               ),
             ),
+            Row(
+              children: [
+                Icon(
+                  Icons.check,
+                  color: Colors.green,
+                  size: 30.0,
+                ),
+                Icon(
+                  Icons.check,
+                  color: Colors.green,
+                  size: 30.0,
+                ),
+                Icon(
+                  Icons.check,
+                  color: Colors.green,
+                  size: 30.0,
+                ),
+                Icon(
+                  Icons.close,
+                  color: Colors.red,
+                  size: 30.0,
+                ),
+                Icon(
+                  Icons.close,
+                  color: Colors.red,
+                  size: 30.0,
+                ),
+              ],
+            )
           ],
         ),
       ),
