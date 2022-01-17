@@ -25,7 +25,7 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  List<Icon> resultat = [];
+  List<Icon> suiviScore = [];
   List<String> question = [
     'Le piton des neiges est un volcan de la Réunion ?',
     'Flutter permet de faire des applications web également ?',
@@ -67,22 +67,25 @@ class _QuizState extends State<Quiz> {
                     ),
                   ),
                   onPressed: () {
-                    bool bonnereponse = reponses[questionNumber];
+                    int nombreQuestion = question.length;
+                    if (nombreQuestion != questionNumber) {
+                      bool bonnereponse = reponses[questionNumber];
 
-                    if (bonnereponse == true) {
-                      setState(() {
-                        resultat.add(
-                          Icon(Icons.check, color: Colors.green),
-                        );
-                        questionNumber++;
-                      });
-                    } else {
-                      setState(() {
-                        resultat.add(
-                          Icon(Icons.close, color: Colors.red),
-                        );
-                        questionNumber++;
-                      });
+                      if (bonnereponse == true) {
+                        setState(() {
+                          suiviScore.add(
+                            Icon(Icons.check, color: Colors.green),
+                          );
+                          questionNumber++;
+                        });
+                      } else {
+                        setState(() {
+                          suiviScore.add(
+                            Icon(Icons.close, color: Colors.red),
+                          );
+                          questionNumber++;
+                        });
+                      }
                     }
                   },
                   child: const Text('True'),
@@ -99,28 +102,31 @@ class _QuizState extends State<Quiz> {
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    bool bonnereponse = reponses[questionNumber];
-                    if (bonnereponse == false) {
-                      setState(() {
-                        resultat.add(
-                          Icon(Icons.check, color: Colors.green),
-                        );
-                        questionNumber++;
-                      });
-                    } else {
-                      setState(() {
-                        resultat.add(
-                          Icon(Icons.close, color: Colors.red),
-                        );
-                        questionNumber++;
-                      });
+                    int nombreQuestion = question.length;
+                    if (nombreQuestion != questionNumber) {
+                      bool bonnereponse = reponses[questionNumber];
+                      if (bonnereponse == false) {
+                        setState(() {
+                          suiviScore.add(
+                            Icon(Icons.check, color: Colors.green),
+                          );
+                          questionNumber++;
+                        });
+                      } else {
+                        setState(() {
+                          suiviScore.add(
+                            Icon(Icons.close, color: Colors.red),
+                          );
+                          questionNumber++;
+                        });
+                      }
                     }
                   },
                   child: const Text('False'),
                 ),
               ),
             ),
-            Row(children: resultat),
+            Row(children: suiviScore),
           ],
         ),
       ),
