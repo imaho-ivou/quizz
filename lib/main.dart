@@ -25,34 +25,15 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  List<Icon> resultat = [
-    Icon(
-      Icons.check,
-      color: Colors.green,
-      size: 30.0,
-    ),
-    Icon(
-      Icons.check,
-      color: Colors.green,
-      size: 30.0,
-    ),
-    Icon(
-      Icons.check,
-      color: Colors.green,
-      size: 30.0,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-      size: 30.0,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-      size: 30.0,
-    )
+  List<Icon> resultat = [];
+  List<String> question = [
+    'Le piton des neiges est un volcan de la Réunion ?',
+    'Flutter permet de faire des applications web également ?',
+    'Php est le language utilisé par Flutter ?',
+    'test'
   ];
-  List<String> question = ['question1', 'question2', 'question3', 'question4'];
+  List<bool> reponses = [true, true, false];
+  int questionNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +48,7 @@ class _QuizState extends State<Quiz> {
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
-                    '${question[1]}',
+                    '${question[questionNumber]}',
                     style: TextStyle(color: Colors.white, fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
@@ -86,11 +67,23 @@ class _QuizState extends State<Quiz> {
                     ),
                   ),
                   onPressed: () {
-                    setState(() {
-                      resultat.add(
-                        Icon(Icons.check, color: Colors.green),
-                      );
-                    });
+                    bool bonnereponse = reponses[questionNumber];
+
+                    if (bonnereponse == true) {
+                      setState(() {
+                        resultat.add(
+                          Icon(Icons.check, color: Colors.green),
+                        );
+                        questionNumber++;
+                      });
+                    } else {
+                      setState(() {
+                        resultat.add(
+                          Icon(Icons.close, color: Colors.red),
+                        );
+                        questionNumber++;
+                      });
+                    }
                   },
                   child: const Text('True'),
                 ),
@@ -106,11 +99,22 @@ class _QuizState extends State<Quiz> {
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    setState(() {
-                      resultat.add(
-                        Icon(Icons.close, color: Colors.red),
-                      );
-                    });
+                    bool bonnereponse = reponses[questionNumber];
+                    if (bonnereponse == false) {
+                      setState(() {
+                        resultat.add(
+                          Icon(Icons.check, color: Colors.green),
+                        );
+                        questionNumber++;
+                      });
+                    } else {
+                      setState(() {
+                        resultat.add(
+                          Icon(Icons.close, color: Colors.red),
+                        );
+                        questionNumber++;
+                      });
+                    }
                   },
                   child: const Text('False'),
                 ),
