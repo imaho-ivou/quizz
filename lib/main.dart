@@ -83,7 +83,13 @@ class _QuizState extends State<Quiz> {
                       fontSize: 20,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      resultat.add(
+                        Icon(Icons.check, color: Colors.green),
+                      );
+                    });
+                  },
                   child: const Text('True'),
                 ),
               ),
@@ -98,7 +104,11 @@ class _QuizState extends State<Quiz> {
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    print('test');
+                    setState(() {
+                      resultat.add(
+                        Icon(Icons.close, color: Colors.red),
+                      );
+                    });
                   },
                   child: const Text('False'),
                 ),
