@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:quizz/question.dart';
+import 'package:quizz/QuizBrain.dart';
 
+QuizBrain quizBrain = QuizBrain();
 void main() {
   runApp(MyApp());
 }
@@ -33,16 +34,9 @@ class _QuizState extends State<Quiz> {
   //   'Php est le language utilisé par Flutter ?',
   //   ''
   // ];
-
   //
   // List<bool> reponses = [true, true, false];
   int questionNumber = 0;
-  List<Question> questions = [
-    Question('question1', true),
-    Question('question2', true),
-    Question('question3', false),
-    Question('question3', false)
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +51,7 @@ class _QuizState extends State<Quiz> {
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
-                    questions[questionNumber].question,
+                    quizBrain.getQuestion(questionNumber),
                     style: TextStyle(color: Colors.white, fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
@@ -76,11 +70,12 @@ class _QuizState extends State<Quiz> {
                     ),
                   ),
                   onPressed: () {
-                    bool bonnereponse = questions[questionNumber].reponse;
+                    bool bonnereponse = quizBrain.getAnswer(questionNumber);
 
                     setState(
                       () {
-                        if (suiviScore.length != questions.length) {
+                        if (suiviScore.length !=
+                            quizBrain.getQuestionLength()) {
                           if (bonnereponse == true) {
                             suiviScore
                                 .add(Icon(Icons.check, color: Colors.green));
@@ -88,9 +83,10 @@ class _QuizState extends State<Quiz> {
                             suiviScore
                                 .add(Icon(Icons.close, color: Colors.red));
                           }
-                          if (questionNumber < questions.length - 1) {
+                          if (questionNumber <
+                              quizBrain.getQuestionLength() - 1) {
                             questionNumber++;
-                          } // questionNumber = questionNumber + 1 ;
+                          }
                         }
                       },
                     );
@@ -110,15 +106,16 @@ class _QuizState extends State<Quiz> {
                   ),
                   onPressed: () {
                     setState(() {
-                      bool bonnereponse = questions[questionNumber].reponse;
-                      if (suiviScore.length != questions.length) {
+                      bool bonnereponse = quizBrain.getAnswer(questionNumber);
+                      if (suiviScore.length != quizBrain.getQuestionLength()) {
                         if (bonnereponse == false) {
                           suiviScore
                               .add(Icon(Icons.check, color: Colors.green));
                         } else {
                           suiviScore.add(Icon(Icons.close, color: Colors.red));
                         }
-                        if (questionNumber < questions.length - 1) {
+                        if (questionNumber <
+                            quizBrain.getQuestionLength() - 1) {
                           questionNumber++;
                         } //
                       }
