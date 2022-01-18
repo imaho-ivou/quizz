@@ -7,16 +7,21 @@ class QuizBrain {
     Question('question3', false),
     Question('question3', false)
   ];
+  int _questionNumber = 0;
 
-  String getQuestion(int questionNumber) {
-    return _questions[questionNumber].question;
+  String getQuestion() {
+    return _questions[_questionNumber].question;
   }
 
-  bool getAnswer(int questionNumber) {
-    return _questions[questionNumber].reponse;
+  bool getAnswer() {
+    return _questions[_questionNumber].reponse;
   }
 
   int getQuestionLength() {
     return _questions.length;
+  }
+
+  void nextQuestion() {
+    if (_questionNumber < _questions.length - 1) _questionNumber++;
   }
 }

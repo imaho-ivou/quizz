@@ -36,7 +36,6 @@ class _QuizState extends State<Quiz> {
   // ];
   //
   // List<bool> reponses = [true, true, false];
-  int questionNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class _QuizState extends State<Quiz> {
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
-                    quizBrain.getQuestion(questionNumber),
+                    quizBrain.getQuestion(),
                     style: TextStyle(color: Colors.white, fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
@@ -70,7 +69,7 @@ class _QuizState extends State<Quiz> {
                     ),
                   ),
                   onPressed: () {
-                    bool bonnereponse = quizBrain.getAnswer(questionNumber);
+                    bool bonnereponse = quizBrain.getAnswer();
 
                     setState(
                       () {
@@ -83,10 +82,7 @@ class _QuizState extends State<Quiz> {
                             suiviScore
                                 .add(Icon(Icons.close, color: Colors.red));
                           }
-                          if (questionNumber <
-                              quizBrain.getQuestionLength() - 1) {
-                            questionNumber++;
-                          }
+                          quizBrain.nextQuestion();
                         }
                       },
                     );
@@ -106,7 +102,7 @@ class _QuizState extends State<Quiz> {
                   ),
                   onPressed: () {
                     setState(() {
-                      bool bonnereponse = quizBrain.getAnswer(questionNumber);
+                      bool bonnereponse = quizBrain.getAnswer();
                       if (suiviScore.length != quizBrain.getQuestionLength()) {
                         if (bonnereponse == false) {
                           suiviScore
@@ -114,10 +110,7 @@ class _QuizState extends State<Quiz> {
                         } else {
                           suiviScore.add(Icon(Icons.close, color: Colors.red));
                         }
-                        if (questionNumber <
-                            quizBrain.getQuestionLength() - 1) {
-                          questionNumber++;
-                        } //
+                        quizBrain.nextQuestion();
                       }
                     });
                   },
