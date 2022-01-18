@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:quizz/QuizBrain.dart';
 
 QuizBrain quizBrain = QuizBrain();
+
 void main() {
   runApp(MyApp());
 }
@@ -28,14 +29,20 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   List<Icon> suiviScore = [];
-  // List<String> question = [
-  //   'Le piton des neiges est un volcan de la Réunion ?',
-  //   'Flutter permet de faire des applications web également ?',
-  //   'Php est le language utilisé par Flutter ?',
-  //   ''
-  // ];
-  //
-  // List<bool> reponses = [true, true, false];
+
+  void checkAnswer(bool reponseutilisateur) {
+    return setState(() {
+      bool bonnereponse = quizBrain.getAnswer();
+      if (suiviScore.length != quizBrain.getQuestionLength()) {
+        if (bonnereponse == reponseutilisateur) {
+          suiviScore.add(Icon(Icons.check, color: Colors.green));
+        } else {
+          suiviScore.add(Icon(Icons.close, color: Colors.red));
+        }
+        quizBrain.nextQuestion();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,23 +76,7 @@ class _QuizState extends State<Quiz> {
                     ),
                   ),
                   onPressed: () {
-                    bool bonnereponse = quizBrain.getAnswer();
-
-                    setState(
-                      () {
-                        if (suiviScore.length !=
-                            quizBrain.getQuestionLength()) {
-                          if (bonnereponse == true) {
-                            suiviScore
-                                .add(Icon(Icons.check, color: Colors.green));
-                          } else {
-                            suiviScore
-                                .add(Icon(Icons.close, color: Colors.red));
-                          }
-                          quizBrain.nextQuestion();
-                        }
-                      },
-                    );
+                    checkAnswer(true);
                   },
                   child: const Text('True'),
                 ),
@@ -101,18 +92,7 @@ class _QuizState extends State<Quiz> {
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    setState(() {
-                      bool bonnereponse = quizBrain.getAnswer();
-                      if (suiviScore.length != quizBrain.getQuestionLength()) {
-                        if (bonnereponse == false) {
-                          suiviScore
-                              .add(Icon(Icons.check, color: Colors.green));
-                        } else {
-                          suiviScore.add(Icon(Icons.close, color: Colors.red));
-                        }
-                        quizBrain.nextQuestion();
-                      }
-                    });
+                    checkAnswer(false);
                   },
                   child: const Text('False'),
                 ),
