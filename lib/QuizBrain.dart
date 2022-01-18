@@ -5,8 +5,10 @@ class QuizBrain {
     Question('question1', true),
     Question('question2', true),
     Question('question3', false),
-    Question('question3', false)
+    Question('question4', false)
   ];
+  List _suiviScore = [];
+
   int _questionNumber = 0;
 
   String getQuestion() {
@@ -23,5 +25,10 @@ class QuizBrain {
 
   void nextQuestion() {
     if (_questionNumber < _questions.length - 1) _questionNumber++;
+  }
+  //function qui remet a zero le quizz
+
+  int reset() {
+    return _questionNumber = 0;
   }
 }

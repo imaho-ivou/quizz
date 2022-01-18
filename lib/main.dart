@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:quizz/QuizBrain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart' show Alert;
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quizBrain = QuizBrain();
 
@@ -28,20 +30,56 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+  //tableau qui affiche en bas l'ecran le resultat de chaque question
   List<Icon> suiviScore = [];
 
-  void checkAnswer(bool reponseutilisateur) {
+  //tableau dans lequel le nombre de bonne reponse est recupere
+  // et laffiche a la fin le quizz
+  List<String> scoreFinal = [];
+
+//fonction qui reset chaque tableau et le compteur
+  resetScore() {
     return setState(() {
-      bool bonnereponse = quizBrain.getAnswer();
-      if (suiviScore.length != quizBrain.getQuestionLength()) {
-        if (bonnereponse == reponseutilisateur) {
-          suiviScore.add(Icon(Icons.check, color: Colors.green));
-        } else {
-          suiviScore.add(Icon(Icons.close, color: Colors.red));
-        }
-        quizBrain.nextQuestion();
-      }
+      suiviScore.clear();
+      scoreFinal.clear();
+      quizBrain.reset();
     });
+  }
+
+  void checkAnswer(bool reponseutilisateur) {
+    return setState(
+      () {
+        bool bonnereponse = quizBrain.getAnswer();
+        if (suiviScore.length != quizBrain.getQuestionLength()) {
+          if (bonnereponse == reponseutilisateur) {
+            suiviScore.add(Icon(Icons.check, color: Colors.green));
+            scoreFinal.add('true');
+          } else {
+            suiviScore.add(Icon(Icons.close, color: Colors.red));
+          }
+          quizBrain.nextQuestion();
+        } else {
+          Alert(
+            context: context,
+            title: 'votre résultat:',
+            desc: scoreFinal.length.toString(),
+            buttons: [
+              DialogButton(
+                child: Text(
+                  "Reset",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                onPressed: () {
+                  resetScore();
+                  Navigator.pop(context);
+                },
+                width: 120,
+              )
+            ],
+          ).show();
+        }
+      },
+    );
   }
 
   @override
