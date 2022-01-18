@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:quizz/question.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,14 +27,22 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   List<Icon> suiviScore = [];
-  List<String> question = [
-    'Le piton des neiges est un volcan de la Réunion ?',
-    'Flutter permet de faire des applications web également ?',
-    'Php est le language utilisé par Flutter ?',
-    'test'
-  ];
-  List<bool> reponses = [true, true, false];
+  // List<String> question = [
+  //   'Le piton des neiges est un volcan de la Réunion ?',
+  //   'Flutter permet de faire des applications web également ?',
+  //   'Php est le language utilisé par Flutter ?',
+  //   ''
+  // ];
+
+  //
+  // List<bool> reponses = [true, true, false];
   int questionNumber = 0;
+  List<Question> questions = [
+    Question('question1', true),
+    Question('question2', true),
+    Question('question3', false),
+    Question('question3', false)
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +57,7 @@ class _QuizState extends State<Quiz> {
                 child: Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
-                    '${question[questionNumber]}',
+                    questions[questionNumber].question,
                     style: TextStyle(color: Colors.white, fontSize: 25),
                     textAlign: TextAlign.center,
                   ),
@@ -67,26 +76,24 @@ class _QuizState extends State<Quiz> {
                     ),
                   ),
                   onPressed: () {
-                    int nombreQuestion = question.length;
-                    if (nombreQuestion != questionNumber) {
-                      bool bonnereponse = reponses[questionNumber];
+                    bool bonnereponse = questions[questionNumber].reponse;
 
-                      if (bonnereponse == true) {
-                        setState(() {
-                          suiviScore.add(
-                            Icon(Icons.check, color: Colors.green),
-                          );
-                          questionNumber++;
-                        });
-                      } else {
-                        setState(() {
-                          suiviScore.add(
-                            Icon(Icons.close, color: Colors.red),
-                          );
-                          questionNumber++;
-                        });
-                      }
-                    }
+                    setState(
+                      () {
+                        if (suiviScore.length != questions.length) {
+                          if (bonnereponse == true) {
+                            suiviScore
+                                .add(Icon(Icons.check, color: Colors.green));
+                          } else {
+                            suiviScore
+                                .add(Icon(Icons.close, color: Colors.red));
+                          }
+                          if (questionNumber < questions.length - 1) {
+                            questionNumber++;
+                          } // questionNumber = questionNumber + 1 ;
+                        }
+                      },
+                    );
                   },
                   child: const Text('True'),
                 ),
@@ -102,25 +109,20 @@ class _QuizState extends State<Quiz> {
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    int nombreQuestion = question.length;
-                    if (nombreQuestion != questionNumber) {
-                      bool bonnereponse = reponses[questionNumber];
-                      if (bonnereponse == false) {
-                        setState(() {
-                          suiviScore.add(
-                            Icon(Icons.check, color: Colors.green),
-                          );
+                    setState(() {
+                      bool bonnereponse = questions[questionNumber].reponse;
+                      if (suiviScore.length != questions.length) {
+                        if (bonnereponse == false) {
+                          suiviScore
+                              .add(Icon(Icons.check, color: Colors.green));
+                        } else {
+                          suiviScore.add(Icon(Icons.close, color: Colors.red));
+                        }
+                        if (questionNumber < questions.length - 1) {
                           questionNumber++;
-                        });
-                      } else {
-                        setState(() {
-                          suiviScore.add(
-                            Icon(Icons.close, color: Colors.red),
-                          );
-                          questionNumber++;
-                        });
+                        } //
                       }
-                    }
+                    });
                   },
                   child: const Text('False'),
                 ),
